@@ -13,8 +13,9 @@ import routerBindings, {
   DocumentTitleHandler,
   UnsavedChangesNotifier,
 } from "@refinedev/react-router-v6";
-import { App as AntdApp, Layout } from "antd";
+import { App as AntdApp } from "antd";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+import Layout from "./components/layout";
 
 
 function App() {
@@ -50,7 +51,8 @@ function App() {
                     >
                     <Layout>
                       <Outlet />
-                    </Layout> 
+                    </Layout>
+                      
                     </Authenticated>}
                   >
                     <Route index element={<Home/>}/>
