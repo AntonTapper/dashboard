@@ -60,8 +60,8 @@ function App() {
                   >
                     <Route index element={<Home/>}/>
                     <Route path="/companies">
-                    <Route index element={<CompanyList />} />
-                    <Route path="new" element={<Create />} />
+                      <Route index element={<CompanyList />} />
+                      <Route path="new" element={<Create />} />
                   </Route>
                   </Route>
                 </Routes>
