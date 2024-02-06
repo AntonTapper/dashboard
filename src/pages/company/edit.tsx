@@ -8,6 +8,7 @@ import { UsersSelectQuery } from '@/graphql/types'
 import SelectOptionWithAvatar from '@/components/select-option-with-avatar'
 import { USERS_SELECT_QUERY } from '@/graphql/queries'
 import { businessTypeOptions, companySizeOptions, industryOptions } from '@/constants'
+import { CompanyContactsTable } from './contacts-table'
 
 
 const EditPage = () => {
@@ -89,6 +90,9 @@ const EditPage = () => {
                     </Form.Item>
                     </Form>
                 </Edit>
+            </Col>
+            <Col xs={24} xl={12}>
+                <CompanyContactsTable />
             </Col>
         </Row>
     </div>
