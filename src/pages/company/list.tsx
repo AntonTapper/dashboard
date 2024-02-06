@@ -9,49 +9,51 @@ import { getDefaultFilter, useGo } from '@refinedev/core'
 import { Input, Space, Table } from 'antd';
 import React from 'react'
 
-export const CompanyList = () => {
+export const CompanyList = ({ children }: React.PropsWithChildren) => {
 
   const go = useGo();
   const { tableProps, filters } = useTable({
-    resource: 'companies',
+    resource: "companies",
     onSearch: (values) => {
       return [
         {
-          field: 'name',
-          operator: 'contains',
-          value: values.name
-        }
-      ]
-    },
-    pagination: {
-      pageSize: 12
+          field: "name",
+          operator: "contains",
+          value: values.name,
+        },
+      ];
     },
     sorters: {
       initial: [
         {
-          field: 'createdAt',
-          order: 'desc'
-        }
-      ]
+          field: "createdAt",
+          order: "desc",
+        },
+      ],
     },
     filters: {
       initial: [
         {
-          field: 'name',
-          operator: 'contains',
-          value: 'undefined'
-        }
-      ]
+          field: "name",
+          operator: "contains",
+          value: undefined,
+        },
+      ],
+    },
+    pagination: {
+      pageSize: 12,
     },
     meta: {
-      gqlQuery: COMPANIES_LIST_QUERY
-    }
+      gqlQuery: COMPANIES_LIST_QUERY,
+    },
+  
 
 })
 
   return (
+    <div>
     <List
-      breadcrumb="false"
+      breadcrumb={false}
       headerButtons={() => (
         <CreateButton 
           onClick={() => {
@@ -117,5 +119,7 @@ export const CompanyList = () => {
         />
       </Table>
     </List>
+    {children}
+    </div>
   )
 }
