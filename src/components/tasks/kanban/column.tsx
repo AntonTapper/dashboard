@@ -17,7 +17,9 @@ const KanbanColumn = ({ children, id, title, description, count, data, onAddClic
 
     const { isOver, setNodeRef, active } = useDroppable({ id, data })
 
-    const onAddClickHandler = () => {}
+    const onAddClickHandler = () => {
+        onAddClick?.({ id })
+    }
  
   return (
     <div

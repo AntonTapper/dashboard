@@ -9,8 +9,8 @@ interface Props {
 const KanbanItem = ({children, id, data}:React.PropsWithChildren<Props>) => {
 
     const { attributes, listeners, setNodeRef, active } = useDraggable({
-        id:'',
-        data: 'data'
+        id,
+        data
     })
 
   return (
@@ -42,6 +42,7 @@ const KanbanItem = ({children, id, data}:React.PropsWithChildren<Props>) => {
                     </div>                    
                 </DragOverlay>
             )}
+            {children}
         </div>
 
     </div>
