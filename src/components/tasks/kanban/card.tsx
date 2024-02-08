@@ -1,8 +1,12 @@
 import { User } from '@/graphql/schema.types'
-import { Button, Card, ConfigProvider, Dropdown, MenuProps, theme } from 'antd'
+import { Button, Card, ConfigProvider, Dropdown, MenuProps, Space, Tag, Tooltip, theme } from 'antd'
 import { Text } from '@/components/text'
-import React, { useMemo } from 'react'
-import { DeleteOutlined, EyeOutlined, MoreOutlined } from '@ant-design/icons'
+import React, { memo, useMemo } from 'react'
+import { ClockCircleOutlined, DeleteOutlined, EyeOutlined, MoreOutlined } from '@ant-design/icons'
+import { TextIcon } from '@/components/text-icon'
+import dayjs from 'dayjs'
+import { getDateColor } from '@/utilities'
+import CustomAvatar from '@/components/custom-avatar'
 
 type ProjectCardProps = {
     id: string,
@@ -42,6 +46,17 @@ const ProjectCard = ({ id, title, dueDate, users }: ProjectCardProps) => {
         ]
         return dropDownItems
     }, [])
+
+    const dueDateOption = useMemo(() => {
+        if(!dueDate) return null;
+
+        const date = dayjs(dueDate)
+
+        return {
+            color: getDateColor({ date: dueDate}) as string,
+            text: date.format('MMM DD')
+        }
+    }, [dueDate])
 
   return (
     <ConfigProvider
@@ -97,7 +112,43 @@ const ProjectCard = ({ id, title, dueDate, users }: ProjectCardProps) => {
                 gap: '8px'
             }}
             >
-                
+                <TextIcon style={{ marginRight: '4px'}}/>
+                {dueDateOption && (
+                    <Tag
+                        icon={
+                            <ClockCircleOutlined style={{ fontSize: '12px'}}/>
+                        }
+                        style={{
+                            padding: '0 4px',
+                            marginInlineEnd: '0',
+                            backgroundColor: dueDateOption.color === 'default' ? 'transparent' : 'unset'
+                        }}
+                        color={dueDateOption.color}
+                        bordered={dueDateOption.color !== 'default'}
+                    >
+                        {dueDateOption.text}
+                    </Tag>
+                )}
+                {!!users?.length && (
+                    <Space
+                        size={4}
+                        wrap
+                        direction='horizontal'
+                        align='center'
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'flex-end',
+                            marginLeft: 'auto',
+                            marginRight: '0'
+                        }}
+                    >
+                        {users.map((user) => (
+                            <Tooltip key={user.id} title={user.name}>
+                                <CustomAvatar name={user.name} src={user.avatarUrl}/>
+                            </Tooltip>
+                        ))}
+                    </Space>
+                )}
             </div>
         </Card>
     </ConfigProvider>
@@ -105,3 +156,13 @@ const ProjectCard = ({ id, title, dueDate, users }: ProjectCardProps) => {
 }
 
 export default ProjectCard
+
+export const ProjectCardMemo = memo(ProjectCard, (prev, next) => {
+    return (
+        prev.id === next.id &&
+        prev.title === next.title &&
+        prev.dueDate === next.dueDate &&
+        prev.users?.length === next.users?.length &&
+        prev.updatedAt === next.updatedAt
+    )
+})
