@@ -5,7 +5,7 @@ import LatestActivitiesSkeleton from '../skeleton/latest-activities';
 import { useList } from '@refinedev/core';
 import { DASHBOARD_LATEST_ACTIVITIES_AUDITS_QUERY, DASHBOARD_LATEST_ACTIVITIES_DEALS_QUERY } from '@/graphql/queries';
 import dayjs from 'dayjs';
-import CustomAvatar from '../custom-avatar';
+import { CustomAvatar } from '..';
 
 const LatestActivities = () => {
 
