@@ -22,16 +22,16 @@ const EditPage = () => {
     const { avatarUrl, name } = queryResult?.data?.data || {}
 
 
-    const { selectedProps, queryResult: queryResultUsers } = useSelect<GetFieldsFromList<UsersSelectQuery>>({
+    const { selectProps, queryResult: queryResultUsers } = useSelect<GetFieldsFromList<UsersSelectQuery>>({
         resource: 'users',
         optionLabel: 'name',
         pagination: {
-            mode: 'off'
+          mode: 'off'
         },
         meta: {
-            gqlQuery: USERS_SELECT_QUERY
+          gqlQuery: USERS_SELECT_QUERY
         }
-    })
+      })
 
   return (
     <div>
