@@ -51,7 +51,7 @@ const EditPage = () => {
                     >
                         <Select 
                             placeholder="Please select a sales owner"
-                            {...selectedProps}
+                            {...selectProps}
                             options={
                                 queryResultUsers.data?.data.map((user) => ({
                                     value: user.id,
